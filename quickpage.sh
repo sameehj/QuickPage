@@ -16,6 +16,21 @@ SKIP_CLOUDFRONT=false
 REGION="us-east-1"
 BUCKET_REGION="eu-central-1"
 CERT_ARN=""
+# Parse command-line arguments
+DEBUG=false
+
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        --debug) DEBUG=true ;;
+        # Add other options here
+    esac
+    shift
+done
+
+if $DEBUG; then
+    ./scripts/debug_aws_resources.sh
+    exit
+fi
 
 function show_usage {
     echo "Usage: ./quickpage.sh [options] yourdomain.com"
